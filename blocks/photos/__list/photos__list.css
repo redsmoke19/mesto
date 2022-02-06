@@ -1,0 +1,21 @@
+.photos__list {
+  display: grid;
+  gap: 20px 17px;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  .photos__list {
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .photos__list {
+    grid-template-columns: 1fr;
+  }
+}

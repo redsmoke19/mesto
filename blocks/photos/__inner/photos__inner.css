@@ -1,0 +1,19 @@
+.photos__inner {
+  align-items: baseline;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 26px 20px 25px;
+}
+
+@media screen and (max-width: 1023px) {
+  .photos__inner {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .photos__inner {
+    padding: 25px 20px 25px;
+  }
+}

@@ -1,0 +1,16 @@
+.photos__like {
+  background: transparent url("../../../images/icon-like.svg") no-repeat center;
+  background-size: 100% 100%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  height: 19px;
+  padding: 0;
+  transition: opacity ease-out 0.15s;
+  width: 22px;
+}
+
+.photos__like:hover {
+  opacity: 0.5;
+}
