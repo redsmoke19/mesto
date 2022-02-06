@@ -15,6 +15,8 @@ Mesto: интерактивная страница, куда можно доба
 - На проекте использовались Flex и Grid сетки
 - Для реализации логики используется JavaScript
 
+[Ссылка на GitHub Pages](https://redsmoke19.github.io/mesto/)
+
 
 **Figma**
 
