@@ -1,5 +1,6 @@
 .photos__img {
-  height: auto;
+  cursor: pointer;
   object-fit: cover;
+  height: 282px;
   width: 100%;
 }

@@ -29,57 +29,15 @@
         </section>
         <section class="photos">
           <ul class="photos__list">
-            <li class="photos__item">
-              <img class="photos__img" src="images/photo-1.jpg" alt="Фотография Карачаевска">
-              <div class="photos__inner">
-                <h2 class="photos__title">Карачаевск</h2>
-                <button class="photos__like"></button>
-              </div>
-            </li>
-            <li class="photos__item">
-              <img class="photos__img" src="images/photo-2.jpg" alt="Фотография Горы Эльбрус">
-              <div class="photos__inner">
-                <h2 class="photos__title">Гора Эльбрус</h2>
-                <button class="photos__like"></button>
-              </div>
-            </li>
-            <li class="photos__item">
-              <img class="photos__img" src="images/photo-3.jpg" alt="Фотография Домбай">
-              <div class="photos__inner">
-                <h2 class="photos__title">Домбай</h2>
-                <button class="photos__like"></button>
-              </div>
-            </li>
-            <li class="photos__item">
-              <img class="photos__img" src="images/photo-2.jpg" alt="Фотография Горы Эльбрус">
-              <div class="photos__inner">
-                <h2 class="photos__title">Гора Эльбрус</h2>
-                <button class="photos__like"></button>
-              </div>
-            </li>
-            <li class="photos__item">
-              <img class="photos__img" src="images/photo-3.jpg" alt="Фотография Домбай">
-              <div class="photos__inner">
-                <h2 class="photos__title">Домбай</h2>
-                <button class="photos__like"></button>
-              </div>
-            </li>
-            <li class="photos__item">
-              <img class="photos__img" src="images/photo-1.jpg" alt="Фотография Карачаевска">
-              <div class="photos__inner">
-                <h2 class="photos__title">Карачаево-Черкесск</h2>
-                <button class="photos__like"></button>
-              </div>
-            </li>
           </ul>
         </section>
       </main>
       <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
-      <div class="popup">
+      <div class="popup popup_edit">
         <div class="popup__container">
-          <button class="popup__close"></button>
+          <button class="popup__close popup__close_edit"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class="popup__form" name="changeYouData">
             <input type="text" class="popup__field" value="" name="youName">
@@ -88,7 +46,37 @@
           </form>
         </div>
       </div>
+      <div class="popup popup_add-photos">
+        <div class="popup__container">
+          <button class="popup__close"></button>
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form" name="addYouPicture">
+            <input type="text" class="popup__field" value="" name="pictureName" placeholder="Название">
+            <input type="text" class="popup__field" value="" name="pictureLink" placeholder="Ссылка на картинку">
+            <button class="popup__submit" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_photo popup_bg_dark">
+        <div class="popup__container popup__container_size_big">
+          <button class="popup__close"></button>
+          <figure class="popup__image-figure">
+            <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Описание" class="popup__image">
+            <figcaption class="popup__image-caption">Описание</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
+    <template class="user-template">
+      <li class="photos__item">
+        <button class="photos__delete"></button>
+        <img class="photos__img" src="images/photo-1.jpg" alt="Фотография Карачаевска">
+        <div class="photos__inner">
+          <h2 class="photos__title">Карачаевск</h2>
+          <button class="photos__like"></button>
+        </div>
+      </li>
+    </template>
     <script src="script/index.js"></script>
   </body>
 </html>

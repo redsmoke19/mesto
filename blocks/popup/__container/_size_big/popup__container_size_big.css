@@ -1,0 +1,12 @@
+.popup__container_size_big {
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: unset;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  max-width: 75vw;
+  max-height: 75vh;
+  padding: 0;
+  width: 100%;
+}
