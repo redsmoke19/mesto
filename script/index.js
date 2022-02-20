@@ -67,21 +67,18 @@ const openPhotoPopup = (item) => {
   photosPopupImage.src = item.link;
   photosPopupImage.alt = item.name;
   photosPopupCaption.textContent = item.name;
+  openPopup(photosPopup);
 }
 
-const handleLikePhoto = (item) => {
-  item.addEventListener('click', () => {
-    item.classList.toggle('photos__like_active');
-  });
+const handleLikePhoto = (evt) => {
+  evt.target.classList.toggle('photos__like_active');
 };
 
-const handleDeletePhoto = (item) => {
-  item.addEventListener('click', () => {
-    item.parentElement.remove();
-  });
-};
+const handleDeletePhoto = (evt) => {
+  evt.target.closest('.photos__item').remove();
+}
 
-const getCreateElement = (item) => {
+const createCard = (item) => {
   const photosElement = photosTemplate.querySelector('.photos__item').cloneNode(true);
   const photosImage = photosElement.querySelector('.photos__img');
   const photosTitle = photosElement.querySelector('.photos__title');
@@ -90,13 +87,12 @@ const getCreateElement = (item) => {
   photosImage.src = item.link;
   photosImage.alt = item.name;
   photosTitle.textContent = item.name;
-  handleLikePhoto(photosLikeButton);
-  handleDeletePhoto(photosDeleteButton);
+  photosLikeButton.addEventListener('click', handleLikePhoto);
+  photosDeleteButton.addEventListener('click', handleDeletePhoto);
   photosImage.addEventListener('click', () => {
     openPhotoPopup(item);
-    openPopup(photosPopup);
-  })
-  photosList.prepend(photosElement);
+  });
+  return photosElement;
 };
 
 const handleEditFormSubmit = (evt) => {
@@ -115,7 +111,7 @@ const handleAddPhotosFormSubmit = (evt) => {
     link: photosAddLinkInput.value || 'https://sbis.perm.ru/wp-content/uploads/2019/09/placeholder.png',
   }
 
-  getCreateElement(photosData);
+  photosList.prepend(createCard(photosData));
   photosAddNameInput.value = '';
   photosAddLinkInput.value = '';
   closePopup(photosAddPopup);
@@ -123,7 +119,7 @@ const handleAddPhotosFormSubmit = (evt) => {
 
 const getUploadPhotosCards = (arr) => {
   arr.forEach(item => {
-    getCreateElement(item);
+    photosList.prepend(createCard(item));
   })
 };
 
