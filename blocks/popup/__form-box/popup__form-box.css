@@ -1,0 +1,7 @@
+.popup__form-box {
+  position: relative;
+}
+
+.popup__form-box:not(:last-of-type) {
+  margin: 0 0 30px 0;
+}

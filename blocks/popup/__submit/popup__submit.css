@@ -9,6 +9,7 @@
   font-size: 18px;
   line-height: 22px;
   padding: 15px 15px 13px;
+  pointer-events: all;
   margin: 48px 0 0 0;
   transition: background-color ease-out 0.15s;
 }

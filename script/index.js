@@ -51,11 +51,20 @@ const initialPhotos = [
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeEscPopup);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeEscPopup);
 };
+
+const closeEscPopup = (evt) => {
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(openedPopup);
+  }
+}
 
 const openEditPopup = () => {
   openPopup(profileEditPopup);
@@ -140,5 +149,17 @@ photosAddCloseButton.addEventListener('click', () => {
 photosPopupClose.addEventListener('click', () => {
   closePopup(photosPopup);
 });
+
+const getCloseOverlayPopups = (evt) => {
+  const popups = document.querySelectorAll('.popup');
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      if (!evt.target.closest('.popup__container')) {
+        closePopup(popup);
+      }
+    })
+  })
+}
+getCloseOverlayPopups();
 
 getUploadPhotosCards(initialPhotos);
