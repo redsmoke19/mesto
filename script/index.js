@@ -1,18 +1,19 @@
+const popups = document.querySelectorAll('.popup')
+
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileEditPopup = document.querySelector('.popup_edit');
 const profileEditForm = profileEditPopup.querySelector('.popup__form');
-const profileEditCloseButton = profileEditPopup.querySelector('.popup__close_edit');
 const profileEditNameInput = profileEditPopup.querySelector('[name=youName]');
 const profileEditJobInput = profileEditPopup.querySelector('[name=youJob]');
 
 const photosAddOpenButton = document.querySelector('.profile__add-button');
 const photosAddPopup = document.querySelector('.popup_add-photos');
-const photosAddCloseButton = photosAddPopup.querySelector('.popup__close');
 const photosAddForm = photosAddPopup.querySelector('.popup__form');
 const photosAddNameInput = photosAddPopup.querySelector('[name=pictureName]');
 const photosAddLinkInput = photosAddPopup.querySelector('[name=pictureLink]');
+const photosAddButton = photosAddPopup.querySelector('.popup__submit');
 
 const photosList = document.querySelector('.photos__list');
 const photosTemplate = document.querySelector('.user-template').content;
@@ -20,7 +21,6 @@ const photosTemplate = document.querySelector('.user-template').content;
 const photosPopup = document.querySelector('.popup_photo');
 const photosPopupImage = photosPopup.querySelector('.popup__image');
 const photosPopupCaption = photosPopup.querySelector('.popup__image-caption');
-const photosPopupClose = photosPopup.querySelector('.popup__close');
 
 const initialPhotos = [
   {
@@ -60,8 +60,8 @@ const closePopup = (popup) => {
 };
 
 const closeEscPopup = (evt) => {
-  const openedPopup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 }
@@ -123,6 +123,8 @@ const handleAddPhotosFormSubmit = (evt) => {
   photosList.prepend(createCard(photosData));
   photosAddNameInput.value = '';
   photosAddLinkInput.value = '';
+  photosAddButton.classList.add('popup__submit_disabled');
+  photosAddButton.setAttribute('disabled', 'true');
   closePopup(photosAddPopup);
 };
 
@@ -134,32 +136,24 @@ const getUploadPhotosCards = (arr) => {
 
 profileEditButton.addEventListener('click', openEditPopup);
 profileEditForm.addEventListener('submit', handleEditFormSubmit);
-profileEditCloseButton.addEventListener('click', () => {
-  closePopup(profileEditPopup);
-});
 
 photosAddForm.addEventListener('submit', handleAddPhotosFormSubmit);
 photosAddOpenButton.addEventListener('click', () => {
   openPopup(photosAddPopup);
 });
-photosAddCloseButton.addEventListener('click', () => {
-  closePopup(photosAddPopup);
-});
 
-photosPopupClose.addEventListener('click', () => {
-  closePopup(photosPopup);
-});
-
-const getCloseOverlayPopups = (evt) => {
-  const popups = document.querySelectorAll('.popup');
+const getClosePopups = (evt) => {
   popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-      if (!evt.target.closest('.popup__container')) {
-        closePopup(popup);
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup)
       }
     })
-  })
-}
-getCloseOverlayPopups();
+  });
+};
+getClosePopups();
 
 getUploadPhotosCards(initialPhotos);
