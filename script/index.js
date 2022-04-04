@@ -1,3 +1,6 @@
+import {Card} from "./Card.js";
+import {FormValidator} from "./FormValidator.js";
+
 const popups = document.querySelectorAll('.popup')
 
 const nameProfile = document.querySelector('.profile__name');
@@ -16,11 +19,6 @@ const photosAddLinkInput = photosAddPopup.querySelector('[name=pictureLink]');
 const photosAddButton = photosAddPopup.querySelector('.popup__submit');
 
 const photosList = document.querySelector('.photos__list');
-const photosTemplate = document.querySelector('.user-template').content;
-
-const photosPopup = document.querySelector('.popup_photo');
-const photosPopupImage = photosPopup.querySelector('.popup__image');
-const photosPopupCaption = photosPopup.querySelector('.popup__image-caption');
 
 const initialPhotos = [
   {
@@ -72,38 +70,6 @@ const openEditPopup = () => {
   profileEditJobInput.value = jobProfile.textContent;
 };
 
-const openPhotoPopup = (item) => {
-  photosPopupImage.src = item.link;
-  photosPopupImage.alt = item.name;
-  photosPopupCaption.textContent = item.name;
-  openPopup(photosPopup);
-}
-
-const handleLikePhoto = (evt) => {
-  evt.target.classList.toggle('photos__like_active');
-};
-
-const handleDeletePhoto = (evt) => {
-  evt.target.closest('.photos__item').remove();
-}
-
-const createCard = (item) => {
-  const photosElement = photosTemplate.querySelector('.photos__item').cloneNode(true);
-  const photosImage = photosElement.querySelector('.photos__img');
-  const photosTitle = photosElement.querySelector('.photos__title');
-  const photosLikeButton = photosElement.querySelector('.photos__like');
-  const photosDeleteButton = photosElement.querySelector('.photos__delete');
-  photosImage.src = item.link;
-  photosImage.alt = item.name;
-  photosTitle.textContent = item.name;
-  photosLikeButton.addEventListener('click', handleLikePhoto);
-  photosDeleteButton.addEventListener('click', handleDeletePhoto);
-  photosImage.addEventListener('click', () => {
-    openPhotoPopup(item);
-  });
-  return photosElement;
-};
-
 const handleEditFormSubmit = (evt) => {
   evt.preventDefault();
 
@@ -120,7 +86,8 @@ const handleAddPhotosFormSubmit = (evt) => {
     link: photosAddLinkInput.value || 'https://sbis.perm.ru/wp-content/uploads/2019/09/placeholder.png',
   }
 
-  photosList.prepend(createCard(photosData));
+  const cardElement = new Card(photosData, '.user-template');
+  photosList.prepend(cardElement.createCard());
   photosAddNameInput.value = '';
   photosAddLinkInput.value = '';
   photosAddButton.classList.add('popup__submit_disabled');
@@ -130,7 +97,8 @@ const handleAddPhotosFormSubmit = (evt) => {
 
 const getUploadPhotosCards = (arr) => {
   arr.forEach(item => {
-    photosList.prepend(createCard(item));
+    const cardElement = new Card(item, '.user-template');
+    photosList.prepend(cardElement.createCard());
   })
 };
 
@@ -157,3 +125,20 @@ const getClosePopups = (evt) => {
 getClosePopups();
 
 getUploadPhotosCards(initialPhotos);
+
+
+const formData = {
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+const popupForms = Array.from(document.querySelectorAll('.popup__form'));
+popupForms.forEach((item) => {
+  const formValidate = new FormValidator(formData, item);
+  formValidate.enableValidation();
+})
+
+export {openPopup};
