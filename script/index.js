@@ -18,7 +18,13 @@ const photosAddNameInput = photosAddPopup.querySelector('[name=pictureName]');
 const photosAddLinkInput = photosAddPopup.querySelector('[name=pictureLink]');
 const photosAddButton = photosAddPopup.querySelector('.popup__submit');
 
+const photosPopup = document.querySelector('.popup_photo');
+const photosPopupImage = photosPopup.querySelector('.popup__image');
+const photosPopupCaption = photosPopup.querySelector('.popup__image-caption');
+
 const photosList = document.querySelector('.photos__list');
+
+const formValidators = {};
 
 const initialPhotos = [
   {
@@ -68,7 +74,15 @@ const openEditPopup = () => {
   openPopup(profileEditPopup);
   profileEditNameInput.value = nameProfile.textContent;
   profileEditJobInput.value = jobProfile.textContent;
+  formValidators['changeYouData'].resetValidation();
 };
+
+const handlerCardClick = (name, link) => {
+  photosPopupImage.src = link;
+  photosPopupImage.alt = name;
+  photosPopupCaption.textContent = name;
+  openPopup(photosPopup);
+}
 
 const handleEditFormSubmit = (evt) => {
   evt.preventDefault();
@@ -76,6 +90,11 @@ const handleEditFormSubmit = (evt) => {
   nameProfile.textContent = profileEditNameInput.value;
   jobProfile.textContent = profileEditJobInput.value;
   closePopup(profileEditPopup);
+};
+
+const createCard = (item) => {
+  const cardElement = new Card(item, '.user-template', handlerCardClick);
+  return cardElement.createCard();
 };
 
 const handleAddPhotosFormSubmit = (evt) => {
@@ -86,19 +105,15 @@ const handleAddPhotosFormSubmit = (evt) => {
     link: photosAddLinkInput.value || 'https://sbis.perm.ru/wp-content/uploads/2019/09/placeholder.png',
   }
 
-  const cardElement = new Card(photosData, '.user-template');
-  photosList.prepend(cardElement.createCard());
+  photosList.prepend(createCard(photosData));
   photosAddNameInput.value = '';
   photosAddLinkInput.value = '';
-  photosAddButton.classList.add('popup__submit_disabled');
-  photosAddButton.setAttribute('disabled', 'true');
   closePopup(photosAddPopup);
 };
 
 const getUploadPhotosCards = (arr) => {
   arr.forEach(item => {
-    const cardElement = new Card(item, '.user-template');
-    photosList.prepend(cardElement.createCard());
+    photosList.prepend(createCard(item));
   })
 };
 
@@ -107,6 +122,7 @@ profileEditForm.addEventListener('submit', handleEditFormSubmit);
 
 photosAddForm.addEventListener('submit', handleAddPhotosFormSubmit);
 photosAddOpenButton.addEventListener('click', () => {
+  formValidators['addYouPicture'].resetValidation();
   openPopup(photosAddPopup);
 });
 
@@ -132,13 +148,18 @@ const formData = {
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__field_type_error',
-  errorClass: 'popup__error_visible'
+  errorClass: 'popup__error_visible',
+  formSelector: '.popup__form',
 };
 
-const popupForms = Array.from(document.querySelectorAll('.popup__form'));
-popupForms.forEach((item) => {
-  const formValidate = new FormValidator(formData, item);
-  formValidate.enableValidation();
-})
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+}
 
-export {openPopup};
+enableValidation(formData);

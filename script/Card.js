@@ -1,13 +1,8 @@
-import {openPopup} from './index.js';
-
-const photosPopup = document.querySelector('.popup_photo');
-const photosPopupImage = photosPopup.querySelector('.popup__image');
-const photosPopupCaption = photosPopup.querySelector('.popup__image-caption');
-
 class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handlerCardClick) {
     this._data = data;
     this._cardSelector = cardSelector;
+    this._handlerCardClick = handlerCardClick;
   }
 
   _getTemplate() {
@@ -37,7 +32,7 @@ class Card {
       this._handleDeletePhoto();
     });
     this._photosImage.addEventListener('click', () => {
-      this._openPhotoPopup();
+      this._handlerCardClick(this._data.name, this._data.link);
     });
   }
 
@@ -47,13 +42,6 @@ class Card {
 
   _handleDeletePhoto() {
     this._element.remove();
-  }
-
-  _openPhotoPopup() {
-    photosPopupImage.src = this._data.link;
-    photosPopupImage.alt = this._data.name;
-    photosPopupCaption.textContent = this._data.name;
-    openPopup(photosPopup);
   }
 }
 
