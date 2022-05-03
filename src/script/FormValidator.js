@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(obj, formElement) {
     this._obj = obj;
     this._formElement = formElement;
@@ -73,5 +73,3 @@ class FormValidator {
     this._setEventListeners(this._obj, this._formElement);
   };
 }
-
-export {FormValidator};

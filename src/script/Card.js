@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor(data, cardSelector, handlerCardClick) {
     this._data = data;
     this._cardSelector = cardSelector;
@@ -44,5 +44,3 @@ class Card {
     this._element.remove();
   }
 }
-
-export {Card};
