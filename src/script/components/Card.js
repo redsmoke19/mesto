@@ -42,5 +42,6 @@ export default class Card {
 
   _handleDeletePhoto() {
     this._element.remove();
+    this._element = null;
   }
 }

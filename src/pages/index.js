@@ -1,10 +1,10 @@
-import '../pages/index.css';
-import Section from "./Section.js";
-import Card from "./Card.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import FormValidator from "./FormValidator.js";
-import UserInfo from "./UserInfo.js";
+import './index.css';
+import Section from "../script/components/Section.js";
+import Card from "../script/components/Card.js";
+import PopupWithImage from "../script/components/PopupWithImage.js";
+import PopupWithForm from "../script/components/PopupWithForm.js";
+import FormValidator from "../script/components/FormValidator.js";
+import UserInfo from "../script/components/UserInfo.js";
 import {
   initialPhotos,
   photosList,
@@ -18,12 +18,11 @@ import {
   profileEditNameInput,
   profileEditJobInput,
   formValidators,
-} from "./utils/constants.js";
+} from "../script/utils/constants.js";
 
 // Создаем экземпляр класса PopupWithImage
 const imagePopup = new PopupWithImage(photosPopup);
 imagePopup.setEventListeners();
-//
 
 // Функция, которая собирает данные карточек и размещает их в разметке
 const renderCards = new Section({
@@ -32,7 +31,10 @@ const renderCards = new Section({
     cardCreate(item);
   }
 }, photosList);
-//
+
+const addCardContainer = (item) => {
+  renderCards.addItem(item);
+}
 
 // Функция, которая создает карточку из класса и помещает ее в контейнер
 const cardCreate = (data) => {
@@ -41,11 +43,10 @@ const cardCreate = (data) => {
       imagePopup.getDataCard(data.name, data.link);
       imagePopup.open();
     });
-  renderCards.addItem(card.createCard());
+  addCardContainer(card.createCard());
 }
 
 renderCards.renderItems();
-//
 
 // Создаем экземпляр класса попапа формы с добавлением картинки
 const imageAddFormPopup = new PopupWithForm(photosAddPopup,
