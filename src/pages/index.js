@@ -28,7 +28,7 @@ imagePopup.setEventListeners();
 const renderCards = new Section({
   data: initialPhotos,
   renderer: (item) => {
-    cardCreate(item);
+    addCardContainer(cardCreate(item));
   }
 }, photosList);
 
@@ -43,7 +43,7 @@ const cardCreate = (data) => {
       imagePopup.getDataCard(data.name, data.link);
       imagePopup.open();
     });
-  addCardContainer(card.createCard());
+  return card.createCard();
 }
 
 renderCards.renderItems();
@@ -55,7 +55,7 @@ const imageAddFormPopup = new PopupWithForm(photosAddPopup,
       name: data.pictureName,
       link: data.pictureLink
     };
-    cardCreate(popupImageData);
+    addCardContainer(cardCreate(popupImageData));
   }
 )
 
