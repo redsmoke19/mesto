@@ -6,6 +6,7 @@
   display: flex;
   flex-shrink: 0;
   height: 19px;
+  margin: 0 0 3px 0;
   padding: 0;
   transition: opacity ease-out 0.15s;
   width: 22px;
