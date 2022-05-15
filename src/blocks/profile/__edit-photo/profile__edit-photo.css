@@ -15,7 +15,8 @@
 }
 
 .profile__edit-photo::after {
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8) url("../../../images/icon-edit.svg") no-repeat center;
+  background-size: 26px 26px;
   content: "";
   height: 100%;
   left: 0;
@@ -27,10 +28,6 @@
 }
 
 .profile__edit-photo:hover::after {
-  opacity: 1;
-}
-
-.profile__edit-photo:hover .profile__edit-icon {
   opacity: 1;
 }
 
