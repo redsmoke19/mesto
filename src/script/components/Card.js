@@ -39,13 +39,18 @@ export default class Card {
     this._photosLikesCount.textContent = likes;
   }
 
+  getDeleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _setEventListeners() {
     this._photosLikeButton.addEventListener('click', () => {
       this._handlerLikeClick();
       this._handleLikePhoto();
     });
     this._photosDeleteButton.addEventListener('click', () => {
-      this._handlerDeleteCard(this._element, this._data._id);
+      this._handlerDeleteCard(this._data._id);
     });
     this._photosImage.addEventListener('click', () => {
       this._handlerCardClick(this._data.name, this._data.link);

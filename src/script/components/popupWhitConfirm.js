@@ -7,23 +7,18 @@ export default class PopupWithConfirm extends Popup {
     this._formPopup = this._popupSelector.querySelector('.popup__form');
   }
 
-  getDeleteCard() {
-    this._cardElement.remove();
-    this._cardElement = null;
-  }
-
-  getDeletedCardData(card, cardID) {
-    this._cardElement = card;
-    this._cardID = cardID;
+  changeSubmitHandler(submitHandler) {
+    this._handlerFormSubmit = submitHandler;
   }
 
   setEventListeners() {
     this._popupSelector.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._handlerFormSubmit(this._cardID);
-      super.close();
+      this._handlerFormSubmit();
     });
 
     super.setEventListeners();
   }
 }
+
+

@@ -13,20 +13,17 @@ export default class Api {
 
   // Загружаем данные пользователя
   getUserData() {
-    const request = this._url + '/users/me';
+    const request = `${this._url}/users/me`;
     return fetch(request,
       {
         headers: this._headers
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Обновляем данные профиля
   setUserInfo(userData) {
-    const request = this._url + '/users/me';
+    const request = `${this._url}/users/me`;
     return fetch(request,
       {
         method: "PATCH",
@@ -37,27 +34,21 @@ export default class Api {
         })
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Получаем данные всех карточек
   getInitialCards() {
-    const request = this._url + '/cards';
+    const request = `${this._url}/cards`;
     return fetch(request,
       {
         headers: this._headers
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Загружаем свою карточку
   setCard(cardData) {
-    const request = this._url + '/cards';
+    const request = `${this._url}/cards`;
     return fetch(request,
       {
         method: "POST",
@@ -68,56 +59,44 @@ export default class Api {
         })
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Устанавливаем лайк на карточке
   setCardLike(cardID) {
-    const request = this._url + `/cards/${cardID}/likes`;
+    const request = `${this._url}/cards/${cardID}/likes`;
     return fetch(request,
       {
         method: "PUT",
         headers: this._headers
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Удаляем лайк с карточки
   getCardDeleteLike(cardID) {
-    const request = this._url + `/cards/${cardID}/likes`;
+    const request = `${this._url}/cards/${cardID}/likes`;
     return fetch(request,
       {
         method: "DELETE",
         headers: this._headers
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Удаляем карточку
   getRemoveCard(cardId) {
-    const request = this._url + `/cards/${cardId}`;
+    const request = `${this._url}/cards/${cardId}`;
     return fetch(request,
       {
         method: "DELETE",
         headers: this._headers
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 
   // Обновляем аватар пользователя
   getUpdateAvatar(avatar) {
-    const request = this._url + '/users/me/avatar';
+    const request = `${this._url}/users/me/avatar`;
     return fetch(request,
       {
         method: "PATCH",
@@ -127,8 +106,5 @@ export default class Api {
         })
       })
       .then((res) => this._checkStatus(res))
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
   }
 }

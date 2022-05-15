@@ -76,9 +76,18 @@ const cardCreate = (data) => {
           })
       }
     },
-    (cardElement, cardID) => {
-      cardDeleteFormPopup.getDeletedCardData(cardElement, cardID);
+    (cardID) => {
       cardDeleteFormPopup.open();
+      cardDeleteFormPopup.changeSubmitHandler(() => {
+        api.getRemoveCard(cardID)
+          .then((res) => {
+            card.getDeleteCard();
+            cardDeleteFormPopup.close();
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}!`)
+          });
+      })
     }
   );
   return card.createCard();
@@ -90,10 +99,16 @@ const imageAddFormPopup = new PopupWithForm(photosAddPopup,
     return api.setCard(data)
       .then((res) => {
         addCardContainer(cardCreate(res));
+        imageAddFormPopup.close();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
+        console.log(`Ошибка при добавлении карточки: ${err}!`)
+      })
+      .finally(() => {
+        setTimeout(() => {
+          imageAddFormPopup.getLoadingText('Сохранить')
+        }, 500);
+      })
   }
 );
 
@@ -105,28 +120,23 @@ const avatarUpdateFormPopup = new PopupWithForm(profileEditAvatarPopup,
     return api.getUpdateAvatar(data)
       .then((res) => {
         profile.setUserInfo(res);
+        avatarUpdateFormPopup.close();
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
+        console.log(`Ошибка при сохранении аватара: ${err}!`)
+      })
+      .finally(() => {
+        setTimeout(() => {
+          avatarUpdateFormPopup.getLoadingText('Сохранить')
+        }, 500);
+      })
   }
 );
 
 avatarUpdateFormPopup.setEventListeners();
 
 // Создаем экземпляр класса попапа удаления карточки
-const cardDeleteFormPopup = new PopupWithConfirm(cardDeletePopup,
-  (cardID) => {
-    api.getRemoveCard(cardID)
-      .then((res) => {
-        cardDeleteFormPopup.getDeleteCard();
-        // cardDeleteFormPopup.close();
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}!`)
-      });
-  }
-);
+const cardDeleteFormPopup = new PopupWithConfirm(cardDeletePopup);
 
 cardDeleteFormPopup.setEventListeners();
 
@@ -138,10 +148,16 @@ const profileEditFormPopup = new PopupWithForm(profileEditPopup,
     return api.setUserInfo(data)
       .then((res) => {
         profile.setUserInfo(res);
+        profileEditFormPopup.close();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}!`)
-      });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          profileEditFormPopup.getLoadingText('Сохранить')
+        }, 500);
+      })
   }
 );
 
